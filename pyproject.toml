@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "loaddata"
+version = "0.1.0"
+description = "Incremental load to database"
+readme = "README.md"
+authors = [{name="gis4tech"}]
+dependencies = ["pandas", "SQLAlchemy", "psycopg2-binary", "python-dateutil"]  
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,9 @@
+README.md
+pyproject.toml
+src/loaddata/__init__.py
+src/loaddata/carga.py
+src/loaddata.egg-info/PKG-INFO
+src/loaddata.egg-info/SOURCES.txt
+src/loaddata.egg-info/dependency_links.txt
+src/loaddata.egg-info/requires.txt
+src/loaddata.egg-info/top_level.txt
