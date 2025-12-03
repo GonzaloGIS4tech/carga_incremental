@@ -8,6 +8,7 @@ Requires-Dist: pandas
 Requires-Dist: SQLAlchemy
 Requires-Dist: psycopg2-binary
 Requires-Dist: python-dateutil
+Requires-Dist: polars
 
 Instrucciones para instalar la librería
 
@@ -33,16 +34,16 @@ Una vez en el directorio, escribe el siguiente comando (la instalación es compa
 
 Desde este momento, puedes acceder a los módulos de la función loaddata mediante importación del entorno en el que has realizado la operación. 
 Para importarlo en tus scripts:
-
+```python
 	from loaddata import LoadData
 	ld = LoadData()
 	# aquí está el resto del código
-	##
-	##
-	ld.load_all_data() # aquí introduces los parámetros para realizar la carga incremtal/truncado
 
-	DEBES TENER EN CUENTA QUE, PARA QUE LA FUNCIÓN NO FALLE, Y EN CASO DE QUE YA EXISTA LA TABLA EN BASE DE DATOS, DEBE TENER EL CAMPO unique_id. PARA CREARLO HAZ LO SIGUIENTE:
-	
+
+	ld.load_all_data() # aquí introduces los parámetros para realizar la carga incremtal/truncado
+```
+#### DEBES TENER EN CUENTA QUE, PARA QUE LA FUNCIÓN NO FALLE, Y EN CASO DE QUE YA EXISTA LA TABLA EN BASE DE DATOS, DEBE TENER EL CAMPO unique_id. PARA CREARLO HAZ LO SIGUIENTE:
+```sql
 	ALTER TABLE
 	tu_tabla
 	ADD COLUMN unique_id BIGINT; -- SI HAS ESPECIFICADO UN ID ÚNICO, ASEGÚRATE DE QUE ESTE PARÁMETRO SEA DEL MISMO TIPO PARA EVITAR PROBLEMAS CON MERGE
@@ -52,5 +53,5 @@ Para importarlo en tus scripts:
 	DESPUÉS DE EJECUTAR LA FUNCIÓN:
 
 	DELETE FROM tu_tabla WHERE unique_id = -1
-	
+```
 

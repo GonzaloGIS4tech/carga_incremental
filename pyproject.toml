@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Incremental load to database"
 readme = "README.md"
 authors = [{name="gis4tech"}]
-dependencies = ["pandas", "SQLAlchemy", "psycopg2-binary", "python-dateutil"]  
+dependencies = ["pandas", "SQLAlchemy", "psycopg2-binary", "python-dateutil", "polars"]  
 
 [tool.setuptools.packages.find]
 where = ["src"]

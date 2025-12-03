@@ -13,11 +13,9 @@ Escribe Z: para entrar en el disco Z y, a continuación, introduce el comando *c
 
 
 Una vez en el directorio, escribe el siguiente comando (la instalación es compatible con Python 3.x.):
-
-
-
-&nbsp;									**pip install dist/loaddata-0.1.0-py3-none-any.whl**
-
+```cmd
+	pip install dist/loaddata-0.1.0-py3-none-any.whl
+```
 
 
 Desde este momento, puedes acceder a los módulos de la función loaddata mediante importación del entorno en el que has realizado la operación. 

@@ -7,7 +7,8 @@ import hashlib
 from datetime import date, datetime
 from dateutil.relativedelta import relativedelta
 from sqlalchemy import text, create_engine
-
+import polars as pl
+ 
 
 class LoadData():
     '''Utiliza diferentes métodos para cargar datos en PostgreSQL, instanciar variables para mejorar el flujo de 
@@ -195,24 +196,22 @@ class LoadData():
 
                 # self.input_table = self.input_table[~self.input_table['unique_id'].isin(rows_filter)]
                 # \\ HERE
-                if not self.uid_need:
-                    merged = self.input_table.merge(
-                        self.datos_bbdd[['unique_id']],
-                        on='unique_id',
-                        how='left',
-                        indicator=True
-                    )
+                print('Intentando ajustar tipos para pasar a Polars..')
+                object_cols = self.input_table.select_dtypes(include=["object"]).columns
+                self.input_table[object_cols] = self.input_table[object_cols].astype("string")
+                
+                pl_inputdf = pl.from_pandas(self.input_table)
+                pl_bddf = pl.from_pandas(self.datos_bbdd)
 
-                else:
-                    merged = self.input_table.merge(
-                        self.datos_bbdd[[self.uid_need]],
-                        on=self.uid_need,
-                        how='left',
-                        indicator=True
-                    )
+                col = "unique_id" if not self.uid_need else self.uid_need
+                result = pl_inputdf.join(
+                    pl_bddf.select(col),
+                    on=col,
+                    how="anti"
+                )
 
-                self.input_table = merged[merged['_merge'] == 'left_only'].drop(columns=['_merge'])
-
+                self.input_table = result
+                self.input_table = result.to_pandas()
                 self.input_table = self.input_table.reset_index(drop=True)
 
                 datos_aniadidos = len(self.input_table)
